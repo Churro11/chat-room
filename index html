@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #login, #chatRoom {
+            margin: auto;
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #chatBox {
+            height: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Section -->
+    <div id="login">
+        <h2>Enter Password to Access Chat Room</h2>
+        <form action="#chatRoom">
+            <input type="password" id="password" name="password" placeholder="Enter Password">
+            <button type="submit">Enter</button>
+        </form>
+        <p id="error" style="color: red;"></p>
+    </div>
+
+    <!-- Chat Room Section -->
+    <div id="chatRoom" style="display: none;">
+        <h2>Chat Room</h2>
+        <div id="chatBox"></div>
+        <input type="text" id="message" placeholder="Type your message">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const password = document.getElementById('password').value;
+            if (password === '284') {
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('chatRoom').style.display = 'block';
+            } else {
+                document.getElementById('error').textContent = 'Incorrect password, try again.';
+            }
+        });
+
+        function sendMessage() {
+            const message = document.getElementById('message').value;
+            if (message.trim() !== '') {
+                const chatBox = document.getElementById('chatBox');
+                const newMessage = document.createElement('div');
+                newMessage.textContent = message;
+                chatBox.appendChild(newMessage);
+                chatBox.scrollTop = chatBox.scrollHeight;
+                document.getElementById('message').value = '';
+            }
+        }
+    </script>
+</body>
+</html>
